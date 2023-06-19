@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
 
 function Login() {
   const [nameLogin, setNameLogin] = useState('');
   const [load, setLoad] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.currentTarget;
@@ -14,6 +16,7 @@ function Login() {
     setLoad(true);
     await createUser({ name: nameLogin });
     setLoad(false);
+    navigate('/search');
   };
 
   if (load) return <p>Carregando...</p>;
